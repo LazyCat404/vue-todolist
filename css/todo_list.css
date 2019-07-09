@@ -1,0 +1,107 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+html,body,#app{
+    height: 100%;
+    width: 100%;
+    background: #f7f7f7;
+}
+li{
+    list-style: none;
+}
+input[type="text"]{
+    width: calc(100% - 20px);
+    line-height: 28px;
+    padding: 0 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    outline:none;
+}
+.page-top{
+    background: #d64a53;
+    color: #fff;
+}
+.page-content{
+    max-width: 900px;
+    min-width: 350px;
+    width: 50%;
+    margin: 0 auto;
+    font-size: 14px;
+    padding: 10px 0;
+}
+.main{
+    max-width: 900px;
+    min-width: 350px;
+    width: 50%;
+    margin: 0 auto;   
+}
+.big-title{
+    padding: 10px 0;
+}
+.task-count{
+    overflow: hidden;
+}
+.task-count>li{
+    float: left;
+    padding: 10px 0;
+    color: #f05656;
+}
+.task-count>li.action{
+    float: right;
+}
+li.action>a{
+    color: #7f7c7c;
+    text-decoration: none;
+    padding: 0 5px;
+
+}
+.edit,.no-task-tip,.editing .view{
+    display: none;
+}
+.editing .edit{
+    display: block;
+}
+.editing {
+    padding:0 !important
+}
+.destory{
+    font-size: 20px;
+    background: transparent;
+    border: 0;
+    float: right;
+    display: block;
+    height: 30px;
+    cursor: pointer;
+    color: #d64a53;
+    outline:none;
+    display: none;
+}
+.list{
+    height: 30px;
+    line-height: 100%;
+    padding: 0 10px;
+    background: #fff;
+    margin-bottom: 5px;
+}
+.list label{
+    height: 30px;
+    line-height: 30px;
+    display: inline-block;
+}
+.list:hover .destory{
+    display: block;
+}
+.list:hover{
+    background: #eee;
+}
+.toggle{
+    width: 16px;
+    height: 16px;
+    position: relative;
+    top: 2px;
+}
+li.completed{
+    background: #eee;
+    color: #a4a4a4;
+}

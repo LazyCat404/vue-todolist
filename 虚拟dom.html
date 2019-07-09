@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>虚拟Dom</title>
+</head>
+<body>
+    <div id="app"></div>
+    <!-- js -->
+    <script>
+        function vElement(tagName,prop,children){
+            //  判断this是否是vElement的一个实例，如果不是也就是说没new
+            if(!(this instanceof vElement)){ 
+                //内部return就可以直接用VElement()去调用，不用在new就可以得到一个实例对象
+                return new vElement(tagName,prop,children); 
+            }
+            /*
+            判断第二个参数是否是数组（结点没有属性）
+            [object Array] => 数组
+            [object Object] => 对象
+            */
+            if(Object.prototype.toString.call(prop) === "[object Array]"){
+                children = prop; 
+                prop = {};
+            }
+            this.tagName = tagName;
+            this.prop = prop;
+            this.children = children;
+            var count = 0;//记录demo有几个节点
+            this.children.forEach(function(child,index){
+                if(child instanceof vElement){
+                    count += child.count;
+                }
+                count++;
+            });
+            this.count = count;
+        }
+        vElement.prototype.render = function(){
+            var el = document.createElement(this.tagName);
+            var children = this.children;
+            var prop = this.prop;
+            for(var item in prop){
+                var curProp = prop[item];
+                el.setAttribute(item,curProp);
+            }
+            children.forEach(function(child,index){
+                if(child instanceof vElement){
+                    var childDom = child.render();
+                }else{
+                    var childDom = document.createTextNode(child);
+                }
+                el.appendChild(childDom);
+            })
+            return el;
+        }
+        var dom = vElement("div",{class:"demo",id:"demo1"},["hello world",vElement("p",{class:"demo2"},["我是p标签"])]);
+        console.log(dom.render());
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/todo_list.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+    <div id="app">
+        <div id="demo" class="page-top">
+            <div class="page-content">
+                <h2>任务列表</h2>
+            </div>
+        </div>
+        <div class="main">
+            <h3 class="big-title">添加任务：</h3>
+            <input type="text" 
+            class="tast-input" 
+            v-model="inputValue"
+            v-on:keyup.enter = "addTodo"
+            >
+            <ul class="task-count">
+                <li>0个任务未完成</li>
+                <li class="action">
+                    <a href="">所有任务</a>
+                    <a href="">未完成</a>
+                    <a href="">完成任务</a>
+                </li> 
+            </ul>
+            <h3 class="big-title">任务列表</h3>
+            <div class="tasks">
+                <span class="no-task-tip">未添加任何项目</span>
+                <ul class="todo-list">
+                    <li v-for="item in list" 
+                    :class="{list,completed:item.checked,editing:editing === item}"
+                    @dblclick = "editTodo(item)"
+                    >
+                        <div class="view">
+                            <input type="checkbox" class="toggle" v-model="item.checked">
+                            <label>{{item.title}}</label>
+                            <button class="destory" @click="delTodo(item)">×</button>
+                        </div>
+                        <input type="text" class="edit" 
+                        v-focus="editing === item"
+                        v-model="item.title"
+                        @keyup.13 = "editedTodo"
+                        @blur="editTodo"
+                        @keyup.esc="canceEdit(item)"
+                        >
+                    </li>
+                </ul>
+            </div>
+        </div> 
+    </div>
+    <!-- js引入 -->
+    <script src="./js/todo_list.js"></script>
+</body>
+</html>
