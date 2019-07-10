@@ -1,20 +1,52 @@
-var list = [{
-    title: '吃饭',
-    checked: true
-},{
-    title: '睡觉',
-    checked: true
-},{
-    title: '写代码',
-    checked: false
-}]
+// 处理localstorage
+var setLocal = {
+    save(key,value){
+        localStorage.setItem(key,JSON.stringify(value))
+    },
+    get(key){
+        return JSON.parse(localStorage.getItem(key));
+    }
+}
+var filterChecked = {
+    all(list){
+        return list;
+    },
+    finish(list){
+        return list.filter(function(item){
+            return item.checked;
+        })
+    },
+    unfinish(list){
+        return list.filter(function(item){
+            return !item.checked;
+        })
+    }
+}
+var list = setLocal.get("todo") || [];
 var vm = new Vue({
     el:'.main',
+    watch:{ //监听函数
+        list:{
+            deep: true,
+            handler:function(){
+                setLocal.save("todo",this.list)
+            }
+        }
+    },
     data:{
         list:list,//项目列表
         inputValue:'', //输入值
         editing:'', //正在编辑的选项
-        beforeEdit:''//编辑前的状态
+        beforeEdit:'',//编辑前的状态
+        visibility:'all'//hash值
+    },
+    computed:{ //计算属性
+        filterList(){
+            return this.list.filter(function(item){return !item.checked}).length
+        },
+        filterCheck(){
+            return filterChecked[this.visibility] ? filterChecked[this.visibility](this.list) : this.list
+        }
     },
     methods:{
         addTodo(){
@@ -41,7 +73,6 @@ var vm = new Vue({
             this.beforeEdit = "";
             this.editing = "";
         }
-
     },
     directives:{ 
         focus:{ //自定义指令 
@@ -53,3 +84,9 @@ var vm = new Vue({
         }
     }
 })
+function hashchange(){
+    var hash = window.location.hash.slice(1);
+    vm.visibility = hash;
+}
+hashchange()
+window.addEventListener("hashchange",hashchange)

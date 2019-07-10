@@ -23,18 +23,18 @@
             v-on:keyup.enter = "addTodo"
             >
             <ul class="task-count">
-                <li>0个任务未完成</li>
+                <li>{{filterList}}个任务未完成</li>
                 <li class="action">
-                    <a href="">所有任务</a>
-                    <a href="">未完成</a>
-                    <a href="">完成任务</a>
+                    <a href="#all">所有任务</a>
+                    <a href="#unfinish">未完成</a>
+                    <a href="#finish">完成任务</a>
                 </li> 
             </ul>
             <h3 class="big-title">任务列表</h3>
             <div class="tasks">
-                <span class="no-task-tip">未添加任何项目</span>
+                <div class="no-task-tip" v-show="!list.length">未添加任务</div>
                 <ul class="todo-list">
-                    <li v-for="item in list" 
+                    <li v-for="item in filterCheck" 
                     :class="{list,completed:item.checked,editing:editing === item}"
                     @dblclick = "editTodo(item)"
                     >

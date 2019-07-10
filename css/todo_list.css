@@ -56,7 +56,7 @@ li.action>a{
     padding: 0 5px;
 
 }
-.edit,.no-task-tip,.editing .view{
+.edit,.editing .view{
     display: none;
 }
 .editing .edit{
@@ -64,6 +64,11 @@ li.action>a{
 }
 .editing {
     padding:0 !important
+}
+.no-task-tip{
+    padding: 0 10px;
+    line-height: 30px;
+    background: rgb(255, 255, 255);
 }
 .destory{
     font-size: 20px;
