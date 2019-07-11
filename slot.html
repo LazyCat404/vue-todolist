@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>插槽</title>
+    <script src="https://vuejs.org/js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <my-component>
+            <div slot='one'>我是插入模板1</div>
+            <div slot='two'>我是插入模板2</div>
+            <div slot='three'>我是插入模板3</div>
+        </my-component>
+    </div>
+    <!-- js -->
+    <script>
+        Vue.component("my-component",{
+            template:`<div>
+                        <slot name='one'>
+                            <p>我是子组件1</p>
+                        </slot>
+                        <slot name='two'>
+                            <p>我是子组件2</p>
+                        </slot>
+                        <slot name='three'>
+                            <p>我是子组件3</p>
+                        </slot>
+                    </div>`,
+        })
+        new Vue({
+            el:'#app', 
+        })
+    </script>
+</body>
+</html>

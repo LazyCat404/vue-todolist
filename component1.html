@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>父组件向子组件传值</title>
+    <script src="https://vuejs.org/js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <my-component :title="title"></my-component>
+    </div>
+    <!-- js -->
+    <script>
+        Vue.component("my-component",{
+            template:`<div @click='cont++'>{{cont}}</div>`,
+            data(){
+                return{
+                    cont:this.title, //将接受的值暂存
+                }
+            },
+            props:{
+                title:{
+                    type: Number, //传过来的值必须是Number类型
+                    default:0,
+                    required:true //传值不能为空
+                }
+            }
+        })
+        new Vue({
+            el:'#app', 
+            data(){
+                return{
+                    title:0
+                }
+            }, 
+        })
+    </script>
+</body>
+</html>

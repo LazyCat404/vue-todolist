@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>子组件向父组件传值</title>
+    <script src="https://vuejs.org/js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        {{total}}
+        <my-component @addtotal="add"></my-component>
+        <my-component v-on:addtotal="add"></my-component>
+    </div>
+    <!-- js -->
+    <script>
+        Vue.component("my-component",{
+            template:`<div @click='addCont'>{{cont}}</div>`,
+            data(){
+                return{
+                    cont:0 
+                }
+            },
+            methods:{
+                addCont(){
+                    this.cont++;
+                    this.$emit("addtotal");//子组件通过$emit向往出发方法
+                }
+            },
+        })
+        new Vue({
+            el:'#app', 
+            data(){
+                return{
+                    total:0, 
+                }
+            }, 
+            methods:{
+                add(){
+                    this.total++;
+                }
+            }
+        })
+    </script>
+</body>
+</html>
